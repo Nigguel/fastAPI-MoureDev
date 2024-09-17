@@ -1,0 +1,14 @@
+# .gitignore
+
+# Python
+*.pyc
+__pycache__/
+
+# Entorno virtual
+.venv/
+
+# Archivos de la base de datos
+db.sqlite3
+
+# Archivos de configuración sensible
+.venv
