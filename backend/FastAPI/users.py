@@ -6,6 +6,7 @@ app = FastAPI()
 
 # Entidad user
 class User(BaseModel):
+    id: int
     name: str
     surname: str
     url: str
@@ -13,9 +14,9 @@ class User(BaseModel):
 
 
 users_list = [
-    User(name="Nigguel", surname="Fernández", url="https://nigguel.com", age=26),
-    User(name="Genesis", surname="Castañeda", url="https://genesis.com", age=20),
-    User(name="Jasmin", surname="Salcedo", url="https://jasmin.com", age=49),
+    User(id=1, name="Nigguel", surname="Fernández", url="https://nigguel.com", age=26),
+    User(id=2, name="Genesis", surname="Castañeda", url="https://genesis.com", age=20),
+    User(id=3, name="Jasmin", surname="Salcedo", url="https://jasmin.com", age=49),
 ]
 
 
@@ -47,3 +48,23 @@ async def usersjason():
 @app.get("/users")
 async def users():
     return users_list
+
+
+# path
+@app.get("/user/{id}")
+async def user(id: int):
+    return search_user(id)
+
+
+# Query
+@app.get("/user/")
+async def user(id: int):
+    return search_user(id)
+
+
+def search_user(id: int):
+    users = filter(lambda user: user.id == id, users_list)
+    try:
+        return list(users)[0]
+    except:
+        return {"error": "No se ha encontrado el usuario"}
