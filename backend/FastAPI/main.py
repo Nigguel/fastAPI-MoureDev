@@ -1,6 +1,11 @@
 from fastapi import FastAPI
+from routers import products, users
 
-app = FastAPI()
+app = FastAPI(title="Mi API Personalizada")
+
+# Routers
+app.include_router(products.router)
+app.include_router(users.router)
 
 
 @app.get("/saludo")
